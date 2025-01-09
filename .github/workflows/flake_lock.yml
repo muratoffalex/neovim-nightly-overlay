@@ -3,7 +3,7 @@ on:
   workflow_dispatch: # allows manual triggering
   pull_request: # triggers on every Pull Request
   schedule:
-    - cron: '0 * * * *' # runs every hour
+    - cron: '0 */3 * * *' # runs every hour
 
 permissions:
   contents: write
@@ -29,5 +29,6 @@ jobs:
           git-author-name: 'Ruowen Qin'
           git-author-email: 'chinqrw@gmail.com'
       - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
+        if: ${{ steps.update.outputs.pull-request-number != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
