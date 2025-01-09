@@ -26,6 +26,8 @@ jobs:
           path-to-flake-dir: '.'
           commit-msg: "chore(flake): bump flake"
           pr-title: "chore(flake): bump flake"
+          git-author-name: 'Ruowen Qin'
+          git-author-email: 'chinqrw@gmail.com'
       - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ github.token }}
