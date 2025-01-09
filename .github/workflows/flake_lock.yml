@@ -14,11 +14,6 @@ jobs:
   lockfile:
     runs-on: ubuntu-latest
     steps:
-      - uses: navikt/github-app-token-generator@v1
-        id: get-token
-        with:
-          private-key: "${{ secrets.PRIVATE_KEY }}"
-          app-id: "${{ secrets.APP_ID }}"
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
@@ -31,7 +26,6 @@ jobs:
           path-to-flake-dir: '.'
           commit-msg: "chore(flake): bump flake"
           pr-title: "chore(flake): bump flake"
-          token: ${{ steps.get-token.outputs.token }}
       - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
         env:
           GH_TOKEN: ${{ github.token }}
