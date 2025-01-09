@@ -1,9 +1,14 @@
-name: update-flake-lock
+name: update-flake
 on:
   workflow_dispatch: # allows manual triggering
   pull_request: # triggers on every Pull Request
   schedule:
     - cron: '0 * * * *' # runs every hour
+
+permissions:
+  contents: write
+  pull-requests: write
+
 
 jobs:
   lockfile:
@@ -16,5 +21,12 @@ jobs:
       - name: Update flake.lock
         if: ${{ github.event_name != 'pull_request' }}
         uses: DeterminateSystems/update-flake-lock@main
+        id: update
         with:
           path-to-flake-dir: '.'
+          commit-msg: "chore(flake): bump flake"
+          pr-title: "chore(flake): bump flake"
+          token: ${{ steps.get-token.outputs.token }}
+      - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
