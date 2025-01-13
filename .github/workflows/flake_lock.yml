@@ -28,7 +28,7 @@ jobs:
           pr-title: "chore(flake): bump flake"
           git-author-name: 'Ruowen Qin'
           git-author-email: 'chinqrw@gmail.com'
-      - run: "gh pr merge --auto --merge ${{ steps.update.outputs.pull-request-number }}"
+      - run: "gh pr merge --rebase ${{ steps.update.outputs.pull-request-number }}"
         if: ${{ steps.update.outputs.pull-request-number != null }}
         env:
           GH_TOKEN: ${{ github.token }}
