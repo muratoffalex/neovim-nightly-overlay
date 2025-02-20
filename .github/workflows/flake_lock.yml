@@ -9,7 +9,6 @@ permissions:
   contents: write
   pull-requests: write
 
-
 jobs:
   lockfile:
     runs-on: ubuntu-latest
@@ -26,8 +25,8 @@ jobs:
           path-to-flake-dir: '.'
           commit-msg: "chore(flake): bump flake"
           pr-title: "chore(flake): bump flake"
-          git-author-name: 'Ruowen Qin'
-          git-author-email: 'chinqrw@gmail.com'
+          git-author-name: 'Alexander Muratov'
+          git-author-email: 'muratoffalex@gmail.com'
       - run: "gh pr merge --rebase ${{ steps.update.outputs.pull-request-number }}"
         if: ${{ steps.update.outputs.pull-request-number != null }}
         env:
